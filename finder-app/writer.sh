@@ -4,8 +4,13 @@
 
 #filename with complete path
 writefile=$1
+
+#get directory name
 dname=$(dirname "$writefile")
+
+#get filename
 bname=$(basename "$writefile")
+
 #text string to be written in the file
 writestr=$2
 
@@ -19,18 +24,25 @@ then
 	#return 1 error value
 
 else
+	#check if the entered directory exists
 	if [ -d "$dname" ]
 	then
+	#open the entered directory
 	cd "$dname"
+	
+	#if the directory does not exist, make a new directory
 	else
 	mkdir -p "$dname"
 	cd "$dname"
 	fi
+	
 	#create a new file or overwrite existing file with given text string
 	echo "${writestr}" > ${bname}
 	if ! [[ -f "${writefile}" ]]
 	then
 	echo "Error in creating file"
+	exit 1
 	fi
+	
 	exit 0
 fi
