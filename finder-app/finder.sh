@@ -21,14 +21,9 @@ elif ! [ -d $filesdir ]
 then
     echo "$1 - filesdir is not a directory"
     exit 1
-#X - number of files in the directory and subdirectories
-#Y - number of matching lines in the files
-#number of files
-NUMFILES=$(find ${filesdir} -type f -print | wc -l)
-#matching lines in the directory
-LINES=$(egrep -c '\<"$2"\>' "$1")
 
 else
+    #print number of files in the directory and number of instances of given string
     echo "The number of files are $(find ${filesdir} -type f -print | wc -l) and the number of matching lines are $(grep -Rw ${filesdir} -e "${searchstr}" | wc -l)"
     exit 0
 fi
