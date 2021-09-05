@@ -1,7 +1,6 @@
 /* Assignment 2 - AESD       
  * writer.c
  * Author: Saloni Shah */
-#define _GNU_SOURCE
 
 #include<stdio.h>
 #include<string.h>
@@ -24,17 +23,17 @@ int main(int argc, char *argv[] ) {
 	char path[200]="\0";
 	char command[210]="\0";
 
-	strcpy(path, argv[1]);
 
-//	openlog(NULL, 0, LOG_USER);
+	openlog("finder-app-log", LOG_PID, LOG_USER);
 
-	if(argc != 3) {
-		syslog(LOG_ERR, "Incorrect number of arguments\n"
-				"USAGE:\n" "1 Path of file to be written to\n"
+	if(argc<3 || argc>3) {
+		syslog(LOG_ERR, "Incorrect number of arguments. Received %d arguments instead of 2", argc-1);
+		printf(	"USAGE:\n" "1 Path of file to be written to\n"
 				"2 String to be written\n");
 		printf("Error in Command line arguments\n");
 		exit(1);
 	}
+	strcpy(path, argv[1]);
 
 	dir=dirname(argv[1]);
 
@@ -71,6 +70,7 @@ int main(int argc, char *argv[] ) {
 	}
 
 	syslog(LOG_DEBUG, "Writing %s to %s", argv[2], path);
+	closelog();
 	return 0;
 }
 
