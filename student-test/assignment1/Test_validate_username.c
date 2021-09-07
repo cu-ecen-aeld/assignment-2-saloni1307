@@ -21,8 +21,9 @@ void test_validate_my_username()
    // TEST_ASSERT_TRUE_MESSAGE(false,"AESD students, please fix me!");
    char username[11]="\0";
    char username2[11]="\0";
-   char my_name[11] = "saloni1307";
    *username = *my_username();
    *username2 = *malloc_username_from_conf_file();
-   TEST_ASSERT_EQUAL_STRING_MESSAGE(username, username2, my_name);
+   TEST_ASSERT_EQUAL_STRING_MESSAGE(username, username2, "Username compare incorrect");
+
+   free(username2);
 }
